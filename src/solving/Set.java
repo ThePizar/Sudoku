@@ -21,7 +21,7 @@ public class Set {
 	 * @param name - name of the set
 	 * @param maximumValue - maximum value of the tiles
 	 */
-	public Set(String name, int maximumValue){
+	public Set(String name, int maximumValue) {
 		this.tiles = new ArrayList<Tile>();
 		this.name = name;
 		this.maxVal = maximumValue;
@@ -30,21 +30,21 @@ public class Set {
 	 * 
 	 * @return name of the set
 	 */
-	public String getName(){
+	public String getName() {
 		return this.name;
 	}
 	/**
 	 * 
 	 * @return size of the set
 	 */
-	public int getSize(){
+	public int getSize() {
 		return this.tiles.size();
 	}
 	/**
 	 * 
 	 * @return All values of tiles. Should be unique for each tile
 	 */
-	private ArrayList<Integer> getTileValues(){
+	private ArrayList<Integer> getTileValues() {
 		ArrayList<Integer> toReturn = new ArrayList<>();
 		for(Tile t: this.tiles)
 			if(t.getValue() != 0)
@@ -55,7 +55,7 @@ public class Set {
 	 * Adds the given tile to the set
 	 * @param t - tile to be added to the set
 	 */
-	public void addTile(Tile t){
+	public void addTile(Tile t) {
 		//System.out.println("Adding to " + this.name + ": " + t.getX() + ", " + t.getY() + ": " + t.getValue());
 		this.tiles.add(t);
 	}
@@ -67,7 +67,7 @@ public class Set {
 	 * 
 	 * @return the tile at given x & y, null if no such tile in the set
 	 */
-	public Tile getTileAt(int x, int y){
+	public Tile getTileAt(int x, int y) {
 		for(Tile t: this.tiles)
 			if(t.getCol() == x && t.getRow() == y)
 				return t;
@@ -79,7 +79,7 @@ public class Set {
 	 * 
 	 * @return true if input is in the set, otherwise false
 	 */
-	public boolean contains(Tile t){
+	public boolean contains(Tile t) {
 		return this.tiles.contains(t);
 	}
 	/**
@@ -87,15 +87,16 @@ public class Set {
 	 * 
 	 * @return false if an error occured, otherwise true
 	 */
-	public boolean updateAll(){
+	public boolean updateAll() {
 		boolean cont=true;
-		for(Tile t:this.tiles){
+		for(Tile t:this.tiles) {
 			cont = updateBy(t);
 			if(!cont)
 				break;
 		}
-		if(!cont)
+		if(!cont) {
 			System.out.println("Update all failed on " + this.name);
+		}
 		return cont;
 	}
 	/**
@@ -105,13 +106,13 @@ public class Set {
 	 * 
 	 * @return false if two tiles have the same, non-zero value, otherwise true
 	 */
-	public boolean updateBy(Tile t){
+	public boolean updateBy(Tile t) {
 		int val = t.getValue();
 		if(val == 0)
 			return true;
 		for(Tile i:this.tiles)
 			if(i!=t)
-				if(i.getValue() == t.getValue()){
+				if(i.getValue() == t.getValue()) {
 					//System.out.println("Conflict between "+i.getCol()+", "+i.getRow()+" and "+t.getCol()+", "+t.getRow());
 					return false;
 				}
@@ -125,14 +126,14 @@ public class Set {
 	 * 
 	 * @return false if it cannot set a tile to its value, otherwise true
 	 */
-	public boolean checkForOnly(){
+	public boolean checkForOnly() {
 		boolean valid = true;
 		//System.out.println("Checking " + this.name);
-		for(int i = 1; i <= this.maxVal && valid; i++){
+		for(int i = 1; i <= this.maxVal && valid; i++) {
 			int count = 0;
 			Tile t = null;
 			for(Tile l : this.tiles)
-				if(l.canBe(i) && l.getValue() == 0){
+				if(l.canBe(i) && l.getValue() == 0) {
 					count++;
 					t = l;
 				}
@@ -145,7 +146,7 @@ public class Set {
 	}
 	
 	//
-	public boolean checkForGroupAlone2(){
+	public boolean checkForGroupAlone2() {
 	    return true;
 	}
 	
@@ -155,8 +156,8 @@ public class Set {
 	 * @param test
 	 * @return
 	 */
-	public boolean checkForGroupAlone(int size, ArrayList<Integer> test){
-		if(size == 1){ //If inputing one number just check all
+	public boolean checkForGroupAlone(int size, ArrayList<Integer> test) {
+		if(size == 1) { //If inputing one number just check all
 			this.checkAll();
 			return true;
 		}
@@ -164,10 +165,10 @@ public class Set {
 			return true;
 		boolean valid = true;
 		int currSize = test.size();
-		if(currSize == size){
+		if(currSize == size) {
 			Set mini = new Set("Mini GA",this.maxVal);
 			for(Tile t: this.tiles)
-				if(t.possiblities().size() <= size && t.getValue() == 0){
+				if(t.possiblities().size() <= size && t.getValue() == 0) {
 					boolean match = true;
 					for(int j = 0; j < t.possiblities().size() && match; j++)
 						if(!test.contains(t.possiblities().get(j)))
@@ -175,7 +176,7 @@ public class Set {
 					if(match)
 						mini.addTile(t);
 				}
-			if(mini.getSize() > size){
+			if(mini.getSize() > size) {
 				valid = false;
 				mini.printAll();
 			}
@@ -199,10 +200,10 @@ public class Set {
 		return valid;
 	}
 	//-------------------------------------------------------------------------------------------
-	public boolean checkForGroupHidden(int size,ArrayList<Integer> test){
+	public boolean checkForGroupHidden(int size,ArrayList<Integer> test) {
 		boolean valid = true;
 		int currSize = test.size();
-		if(currSize == size){
+		if(currSize == size) {
 			Set mini = new Set("Mini GH", this.maxVal);
 			for(Tile t: this.tiles)
 				if(t.getValue() == 0)
@@ -230,27 +231,27 @@ public class Set {
 	/**
 	 * Check if any tiles in the set can only be one value and sets the tile to that value if it can only be one value
 	 */
-	public void checkAll(){
+	public void checkAll() {
 		for(Tile t: this.tiles)
 			t.checkValue();
 		//System.out.println("Checked " + this.name);
 	}
-	public Set clone(){
+	public Set clone() {
 		Set s = new Set(this.name, this.maxVal);
 		for(Tile t:this.tiles)
 			s.addTile(t);
 		return s;
 	}
-	public void printAll(){
+	public void printAll() {
 		System.out.println(name + ": ");
-		for(Tile t: this.tiles){
+		for(Tile t: this.tiles) {
 			t.print();
 		}
 	}
-	public void simplePrint(){
+	public void simplePrint() {
 		System.out.println(name + ": ");
 		int i = 0;
-		for(Tile t: this.tiles){
+		for(Tile t: this.tiles) {
 			i++;
 			System.out.print(t.getValue() + " ");
 			if(i % 9 == 0)

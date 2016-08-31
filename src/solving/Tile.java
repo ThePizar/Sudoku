@@ -34,19 +34,19 @@ public class Tile {
 	 * @param value is the value of the tile. No value is 0
 	 * @param maxValue is the maximum value of a tile. Assumed that all possible values are between 0 and this number.
 	 */
-	public Tile(int col, int row, int value, int maxValue){
+	public Tile(int col, int row, int value, int maxValue) {
 		this.col = col;
 		this.row = row;
         this.maxValue = maxValue;
-        if(value <= maxValue && value >=0){
+        if(value <= maxValue && value >=0) {
             this.value = value;
         }
         else {
             throw new IllegalArgumentException("Value (" + value + ") is out of bounds specified by maxValue (" + maxValue + ")");
         }
 		this.canBe = new ArrayList<Integer>(maxValue);
-		if(value == 0){
-	        for(int i = 1; i <= maxValue; i++){
+		if(value == 0) {
+	        for(int i = 1; i <= maxValue; i++) {
 	            this.canBe.add(i);
 	        }
 		}
@@ -58,30 +58,30 @@ public class Tile {
 	 * 
 	 * @return value of the tile. O if no value. 
 	 */
-	public int getValue(){
+	public int getValue() {
 		return this.value;
 	}
 	/**
 	 * 
 	 * @return column of the tile
 	 */
-	public int getCol(){
+	public int getCol() {
 		return this.col;
 	}
 	/**
 	 * 
 	 * @return row of the tile
 	 */
-	public int getRow(){
+	public int getRow() {
 		return this.row;
 	}
 	/**
 	 * 
 	 * @return the values that the tile can be
 	 */
-	public ArrayList<Integer> possiblities(){
+	public ArrayList<Integer> possiblities() {
 		ArrayList<Integer> possiblities = new ArrayList<>();
-		for(int i : this.canBe){
+		for(int i : this.canBe) {
             possiblities.add(i);
 		}
 		return possiblities;
@@ -91,7 +91,7 @@ public class Tile {
 	 * @param a is the value being checked
 	 * @return Whether this tile can be a
 	 */
-	public boolean canBe(int a){
+	public boolean canBe(int a) {
 		return this.canBe.contains(a);
 	}
 	/**
@@ -99,10 +99,10 @@ public class Tile {
 	 * @param possibilities list of values that the tile is being assigned to be a part of
 	 * @return true if it can be all of those values, otherwise false.
 	 */
-	public boolean canBeOnly(ArrayList<Integer> possibilities){
+	public boolean canBeOnly(ArrayList<Integer> possibilities) {
 		boolean toReturn = true;
-		for(int i = 1; i <= this.maxValue && toReturn; i++){
-			if(!possibilities.contains(i)){
+		for(int i = 1; i <= this.maxValue && toReturn; i++) {
+			if(!possibilities.contains(i)) {
 				toReturn = this.cantBe(i);
 			}
 		}
@@ -114,7 +114,7 @@ public class Tile {
 	 * 
      * @return whether this tile can be any value
 	 */
-	public boolean cantBe(Integer value){
+	public boolean cantBe(Integer value) {
 	    this.canBe.remove(value);
 		return this.canBe.size() > 0;
 	}
@@ -123,7 +123,7 @@ public class Tile {
 	 * 
 	 * @return false if value is not 0 and is not a, otherwise true
 	 */
-	public boolean setValue(int value){
+	public boolean setValue(int value) {
 		//System.out.println("Setting " + this.col + ", " + this.row + ": " + this.getValue() + " To: " + a);
 	    if(value == 0 || value > this.maxValue) {
 	        return false;
@@ -139,7 +139,7 @@ public class Tile {
 	 * @return 0 if its value is still not known,
 	 * otherwise it returns the (new) value of the tile
 	 */
-	protected int checkValue(){ 
+	protected int checkValue() { 
 		if(this.value != 0) {
 			return this.value;
 		}
@@ -151,9 +151,7 @@ public class Tile {
 	/**
 	 * prints position as column then row then value, 
 	 */
-	public void print(){
+	public void print() {
 		System.out.println(this.col + ", " + this.row + ": " + this.value);
 	}
 }
-
-//This line is a test for git stuff
