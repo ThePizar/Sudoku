@@ -100,9 +100,6 @@ public class Tile {
 	 * @return true if it can be all of those values, otherwise false.
 	 */
 	public boolean canBeOnly(ArrayList<Integer> possibilities){
-		if(possibilities.size() == 1){
-			return this.setValue(possibilities.get(0));
-		}
 		boolean toReturn = true;
 		for(int i = 1; i <= this.maxValue && toReturn; i++){
 			if(!possibilities.contains(i)){
@@ -128,10 +125,11 @@ public class Tile {
 	 */
 	public boolean setValue(int value){
 		//System.out.println("Setting " + this.col + ", " + this.row + ": " + this.getValue() + " To: " + a);
-	    if(value == 0 || value > this.maxValue){
+	    if(value == 0 || value > this.maxValue) {
 	        return false;
 	    }
 	    else{
+	        this.value = value;
 	        return this.canBeOnly(new ArrayList<Integer>(Arrays.asList(value)));
 	    }
 	}
@@ -142,10 +140,12 @@ public class Tile {
 	 * otherwise it returns the (new) value of the tile
 	 */
 	protected int checkValue(){ 
-		if(this.value != 0)
+		if(this.value != 0) {
 			return this.value;
-		if(this.possiblities().size() == 1)
+		}
+		if(this.possiblities().size() == 1) {
 			this.setValue(this.possiblities().get(0));
+		}
 		return this.value;
 	}
 	/**
@@ -155,3 +155,5 @@ public class Tile {
 		System.out.println(this.col + ", " + this.row + ": " + this.value);
 	}
 }
+
+//This line is a test for git stuff
