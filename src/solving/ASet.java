@@ -2,26 +2,26 @@ package solving;
 
 import java.util.ArrayList;
 
-public class Set {
+public abstract class ASet {
 	/**
 	 * List of tiles that are in this set
 	 */
-	private ArrayList<Tile> tiles;
+	protected ArrayList<Tile> tiles;
 	/**
 	 * Name of this Set. It is for organization/debugging purposes. 
 	 */
-	private String name;
+	protected String name;
 	/**
 	 * Maximum value of a tile
 	 */
-	private int maxVal;
+	protected int maxVal;
 
 	/**
 	 * Constructs a set with a given name and maximum value for the tiles
 	 * @param name - name of the set
 	 * @param maximumValue - maximum value of the tiles
 	 */
-	public Set(String name, int maximumValue) {
+	public ASet(String name, int maximumValue) {
 		this.tiles = new ArrayList<Tile>();
 		this.name = name;
 		this.maxVal = maximumValue;
@@ -42,7 +42,7 @@ public class Set {
 	}
 	/**
 	 * 
-	 * @return All values of tiles. Should be unique for each tile
+	 * @return All values of tiles
 	 */
 	private ArrayList<Integer> getTileValues() {
 		ArrayList<Integer> toReturn = new ArrayList<>();
@@ -67,7 +67,7 @@ public class Set {
 	 * 
 	 * @return the tile at given x & y, null if no such tile in the set
 	 */
-	public Tile getTileAt(int x, int y) {
+	public Tile getTileAt(int x, int y) { //Needed for assignment
 		for(Tile t: this.tiles)
 			if(t.getCol() == x && t.getRow() == y)
 				return t;
@@ -82,11 +82,15 @@ public class Set {
 	public boolean contains(Tile t) {
 		return this.tiles.contains(t);
 	}
+	//Restart
+	//Moving Solving part to Rules.java
+	
+	/*
 	/**
 	 * Updates all tiles in relation to all the other tiles
 	 * 
 	 * @return false if an error occured, otherwise true
-	 */
+	 *
 	public boolean updateAll() {
 		boolean cont=true;
 		for(Tile t:this.tiles) {
@@ -105,7 +109,7 @@ public class Set {
 	 * @param t input tile
 	 * 
 	 * @return false if two tiles have the same, non-zero value, otherwise true
-	 */
+	 *
 	public boolean updateBy(Tile t) {
 		int val = t.getValue();
 		if(val == 0)
@@ -125,7 +129,7 @@ public class Set {
 	 * if there is such tile(s) then attempts to set the tile(s) to their values. 
 	 * 
 	 * @return false if it cannot set a tile to its value, otherwise true
-	 */
+	 *
 	public boolean checkForOnly() {
 		boolean valid = true;
 		//System.out.println("Checking " + this.name);
@@ -155,7 +159,7 @@ public class Set {
 	 * @param size
 	 * @param test
 	 * @return
-	 */
+	 *
 	public boolean checkForGroupAlone(int size, ArrayList<Integer> test) {
 		if(size == 1) { //If inputing one number just check all
 			this.checkAll();
@@ -230,18 +234,20 @@ public class Set {
 	}
 	/**
 	 * Check if any tiles in the set can only be one value and sets the tile to that value if it can only be one value
-	 */
+	 *
 	public void checkAll() {
 		for(Tile t: this.tiles)
 			t.checkValue();
 		//System.out.println("Checked " + this.name);
 	}
+	*
 	public Set clone() {
 		Set s = new Set(this.name, this.maxVal);
 		for(Tile t:this.tiles)
 			s.addTile(t);
 		return s;
 	}
+	*/
 	public void printAll() {
 		System.out.println(name + ": ");
 		for(Tile t: this.tiles) {
